@@ -1,0 +1,24 @@
+/*
+A trigger that checks if the hire date of an employee is higher than the current date.
+If true, sets this date to be the current date.
+*/
+
+DELIMITER $$
+
+CREATE TRIGGER trig_hire_date
+
+BEFORE INSERT ON employees
+
+FOR EACH ROW
+
+BEGIN
+
+                IF NEW.hire_date > date_format(sysdate(), '%Y-%m-%d') THEN
+
+                                SET NEW.hire_date = date_format(sysdate(), '%Y-%m-%d');
+
+                END IF;
+
+END $$
+
+DELIMITER ;
